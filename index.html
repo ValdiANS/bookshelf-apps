@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Rivaldi | Bookshelf Apps</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style/main.css" />
+    <link
+      rel="stylesheet"
+      href="./style/sm-style.css"
+      media="screen and (min-width: 576px)"
+    />
+    <link
+      rel="stylesheet"
+      href="./style/md-style.css"
+      media="screen and (min-width: 768px)"
+    />
+    <link
+      rel="stylesheet"
+      href="./style/lg-style.css"
+      media="screen and (min-width: 992px)"
+    />
+
+    <script src="./script/main.js" type="module"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Bookshelf Apps</h1>
+    </header>
+
+    <div id="modalBackdrop" class="modal-backdrop modal-backdrop--none">
+      <!-- Edit Book Modal -->
+      <div id="editModal" class="edit-modal edit-modal--none">
+        <form id="editBookForm" class="edit-book__form">
+          <h2>
+            Edit Buku
+            <b id="editedBookTitle">Book 2</b>
+          </h2>
+
+          <div class="edit-book__form__input-field-container">
+            <div class="edit-book__form__input-field">
+              <label for="editTitle">Judul</label>
+              <input type="text" name="editTitle" id="editTitle" required />
+            </div>
+
+            <div class="edit-book__form__input-field">
+              <label for="editWriter">Penulis</label>
+              <input type="text" name="editWriter" id="editWriter" required />
+            </div>
+
+            <div class="edit-book__form__input-field">
+              <label for="editYear">Tahun</label>
+              <input
+                type="number"
+                name="editYear"
+                id="editYear"
+                min="0"
+                required
+              />
+            </div>
+
+            <div class="edit-book__form__input-field is-finished">
+              <label for="editIsFinished">Selesai dibaca</label>
+              <input
+                type="checkbox"
+                name="editIsFinished"
+                id="editIsFinished"
+              />
+            </div>
+          </div>
+
+          <div class="edit-book__form__btn-container">
+            <button
+              type="reset"
+              id="editCancelBtn"
+              class="edit-book__form__btn reset"
+            >
+              Batal
+            </button>
+
+            <button type="submit" class="edit-book__form__btn submit">
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Delete Book Modal -->
+      <div id="deleteModal" class="delete-modal delete-modal--none">
+        <h3 class="delete-modal__h2">
+          Apakaha anda yakin akan menghapus buku
+          <b id="deletedBookTitle">Book 3</b>
+          ?
+        </h3>
+
+        <div class="delete-modal__action">
+          <button
+            id="deleteCancelBtn"
+            class="delete-modal__btn delete-modal__btn--cancel"
+          >
+            Tidak
+          </button>
+
+          <button
+            id="deleteApproveBtn"
+            class="delete-modal__btn delete-modal__btn--approve"
+          >
+            Ya
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <section class="add-book">
+        <form id="addBookForm" class="add-book__form">
+          <h2>Masukkan Buku Baru</h2>
+
+          <div class="add-book__form__input-field-container">
+            <div class="add-book__form__input-field">
+              <label for="title">Judul</label>
+              <input type="text" name="title" id="title" required />
+            </div>
+
+            <div class="add-book__form__input-field">
+              <label for="writer">Penulis</label>
+              <input type="text" name="writer" id="writer" required />
+            </div>
+
+            <div class="add-book__form__input-field">
+              <label for="year">Tahun</label>
+              <input type="number" name="year" id="year" min="0" required />
+            </div>
+
+            <div class="add-book__form__input-field is-finished">
+              <label for="isFinished">Selesai dibaca</label>
+              <input type="checkbox" name="isFinished" id="isFinished" />
+            </div>
+          </div>
+
+          <div class="add-book__form__btn-container">
+            <button type="reset" class="add-book__form__btn reset">
+              Reset
+            </button>
+
+            <button type="submit" class="add-book__form__btn submit">
+              Tambah
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="main-content">
+        <div class="search-bar">
+          <form id="searchBarForm" class="search-bar__form">
+            <input
+              type="text"
+              name="searchTitle"
+              id="searchInput"
+              required
+              class="search-bar__form__input"
+              placeholder="Cari Judul Buku"
+            />
+
+            <button type="submit" class="search-bar__form__btn search">
+              <img src="./assets/search_white_24dp.svg" alt="Search" />
+            </button>
+
+            <button
+              type="reset"
+              id="resetSearchBtn"
+              class="search-bar__form__btn reset-search reset-search--none"
+            >
+              Reset
+            </button>
+          </form>
+
+          <span
+            id="searchBarSpan"
+            class="search-bar__span search-bar__span--none"
+          >
+            Mencari buku
+            <strong id="searchedBookTitle" class="search-bar__span__b">
+              "Introduction to Algorithms"
+            </strong>
+          </span>
+        </div>
+
+        <div class="bookshelf-container">
+          <div class="incomplete-bookshelf">
+            <h2>Belum Selesai Dibaca</h2>
+
+            <p
+              id="incompleteBookshelfEmptyBook"
+              class="incomplete-bookshelf__empty-book"
+            >
+              Tidak ada buku yang belum selesai dibaca . . .
+            </p>
+
+            <p
+              id="incompleteBookshelfEmptySearch"
+              class="incomplete-bookshelf__empty-search incomplete-bookshelf__empty-search--none"
+            >
+              Hasil pencarian judul buku
+              <br />
+              <b id="incompleteEmptySearchSearchedBookTitle">
+                Introduction To Algorithms
+              </b>
+              <br />
+              tidak ditemukan . . .
+            </p>
+
+            <div id="incompleteBookshelfList" class="incomplete-bookshelf-list">
+              <!-- <article class="incomplete-book-item">
+                <h3>Book 3</h3>
+                <hr />
+                <p>Penulis: Author 3</p>
+                <p>Tahun: 2017</p>
+
+                <div class="incomplete-book-item-action">
+                  <button
+                    class="incomplete-book-item-action__button incomplete-book-item-action__button--check"
+                  >
+                    <img
+                      src="./assets/done_white_24dp.svg"
+                      alt="Mark Finished"
+                    />
+                  </button>
+
+                  <button
+                    class="incomplete-book-item-action__button incomplete-book-item-action__button--edit"
+                  >
+                    <img src="./assets/edit_white_24dp.svg" alt="Edit" />
+                  </button>
+
+                  <button
+                    class="incomplete-book-item-action__button incomplete-book-item-action__button--delete"
+                  >
+                    <img src="./assets/delete_white_24dp.svg" alt="Delete" />
+                  </button>
+                </div>
+              </article> -->
+            </div>
+          </div>
+
+          <div class="complete-bookshelf">
+            <h2>Selesai Dibaca</h2>
+
+            <p
+              id="completeBookshelfEmptyBook"
+              class="complete-bookshelf__empty-book"
+            >
+              Tidak ada buku yang telah selesai dibaca . . .
+            </p>
+
+            <p
+              id="completeBookshelfEmptySearch"
+              class="complete-bookshelf__empty-search complete-bookshelf__empty-search--none"
+            >
+              Hasil pencarian judul buku
+              <br />
+              <b id="completeEmptySearchSearchedBookTitle">
+                Introduction To Algorithms
+              </b>
+              <br />
+              tidak ditemukan . . .
+            </p>
+
+            <div id="completeBookshelfList" class="complete-bookshelf-list">
+              <!-- <article class="complete-book-item">
+                <h3>Book 1</h3>
+                <hr />
+                <p>Penulis: Author 1</p>
+                <p>Tahun: 2015</p>
+
+                <div class="complete-book-item-action">
+                  <button
+                    class="complete-book-item-action__button complete-book-item-action__button--check"
+                  >
+                    <img
+                      src="./assets/restore_white_24dp.svg"
+                      alt="Mark Not Finished"
+                    />
+                  </button>
+
+                  <button
+                    class="complete-book-item-action__button complete-book-item-action__button--edit"
+                  >
+                    <img src="./assets/edit_white_24dp.svg" alt="Edit" />
+                  </button>
+
+                  <button
+                    class="complete-book-item-action__button complete-book-item-action__button--delete"
+                  >
+                    <img src="./assets/delete_white_24dp.svg" alt="Delete" />
+                  </button>
+                </div>
+              </article> -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Created by
+        <a
+          href="https://github.com/ValdiANS/bookshelf-apps"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <strong>Rivaldi</strong>
+        </a>
+        for dicoding submission
+      </p>
+    </footer>
+  </body>
+</html>

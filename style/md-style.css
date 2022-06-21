@@ -1,0 +1,33 @@
+/* Main */
+main {
+  flex-direction: row;
+}
+
+/* Add Book Section */
+.add-book {
+  max-width: 300px;
+}
+
+/* Search Bar */
+.search-bar {
+  flex-direction: column;
+}
+
+.search-bar__form {
+  max-width: initial;
+}
+
+.search-bar__span {
+  text-align: center;
+}
+
+/* Bookshelf */
+.bookshelf-container {
+  flex-direction: column;
+  gap: 0;
+}
+
+.incomplete-bookshelf,
+.complete-bookshelf {
+  padding: 1rem;
+}

@@ -1,0 +1,18 @@
+/* Bookshelf */
+.bookshelf-container {
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.incomplete-bookshelf,
+.complete-bookshelf {
+  padding: 1rem;
+}
+
+.incomplete-bookshelf {
+  padding-right: 0;
+}
+
+.complete-bookshelf {
+  padding-left: 0;
+}
